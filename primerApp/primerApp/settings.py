@@ -10,20 +10,31 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
+##from pathlib import Path
+
+from ast import Pass
+from distutils.debug import DEBUG
+import environ
+import os
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+##BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k@r64dr79o9=2a@pndo0@cw(9zh424h!0ibt6)k+@@-@%h+=fc'
-
+##SECRET_KEY = 'django-insecure-k@r64dr79o9=2a@pndo0@cw(9zh424h!0ibt6)k+@@-@%h+=fc'
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+##DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -86,17 +97,16 @@ WSGI_APPLICATION = 'primerApp.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME': 'dbDjango',
-        'USER': 'postgres',
-        'PASSWORD': 'registro12',
-        'HOST': 'localhost',
-        'PORT':  '5432'
+   'default': {
+       'ENGINE': env('ENGINE'),
+       'NAME': env('NAME'),
+       'USER': env('USER'),
+       'PASSWORD': env('PASSWORD'),
+       'HOST': env('HOST'),
+       'PORT':  env('PORT')
 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -138,3 +148,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
