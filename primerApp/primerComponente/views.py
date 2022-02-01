@@ -1,4 +1,5 @@
 from ast import Delete
+from urllib import response
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,6 +11,14 @@ from primerComponente.models import PrimerModelo
 #importacion de serializador
 from primerComponente.serializers import PrimerTablaSerializer
 
+class responseA(APIView):
+    def response_custom(message="", payload="", statusn=""):
+        return{
+            "message": message,
+            "payload": payload,
+            "status": statusn
+        }
+
 class PrimerViewList(APIView):
     def get(self, request, format=None):
         querySet = PrimerModelo.objects.all()
@@ -20,9 +29,14 @@ class PrimerViewList(APIView):
         serializer = PrimerTablaSerializer(data=request.data, context={'request':request})
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
+            s=serializer.data
+            mensok="success"
+            
+            return Response(responseA.response_custom(mensok,s,status.HTTP_201_CREATED))
         else:
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            menserr="error"
+            se=serializer.errors
+            return Response(responseA.response_custom(menserr,se,status.HTTP_400_BAD_REQUEST))
 
 
 class PrimerViewDetail(APIView):
@@ -34,32 +48,47 @@ class PrimerViewDetail(APIView):
                 return 404
 
     def get(self,request,pk,format=None):
+        ##serializer = PrimerTablaSerializer(data=request.data, context={'request':request})
         idResponse = self.get_object(pk)
         if idResponse != 404:
              serializer = PrimerTablaSerializer(idResponse, context={'request':request})
-             return Response(serializer.data, status = status.HTTP_200_OK)
+             s=serializer.data
+             mensok="success"
+             return Response(responseA.response_custom(mensok,s,status.HTTP_200_OK))
         else:
-             return Response('no encontrado', status = status.HTTP_400_BAD_REQUEST)
+            menserr="id no encontrado"
+            se=idResponse
+            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
 
     def put(self,request,pk,format=None):
+
         idResponse = self.get_object(pk)
         if idResponse != 404:
                serializer = PrimerTablaSerializer(idResponse, data=request.data, context={'request':request})
                if serializer.is_valid():
                    serializer.save()
-                   return Response(serializer.data, status = status.HTTP_200_OK)
+                   s=serializer.data
+                   mensok="success"
+                   return Response(responseA.response_custom(mensok,s,status.HTTP_200_OK))
                else:
-                    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+                   menserr="error"
+                   se=serializer.errors
+                   return Response(responseA.response_custom(menserr,se,status.HTTP_400_BAD_REQUEST))
         else:
-            return Response('id no encontrado', status = status.HTTP_400_BAD_REQUEST)
+            menserr="id no encontrado"
+            se=idResponse
+            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
 
     def delete(self,request,pk,format=None):
         idResponse = get_object_or_404(PrimerModelo, pk=pk)
         if idResponse != 404:
              idResponse.delete()
-             return Response('borrado con exito', status=status.HTTP_200_OK)
+             mensok="success"
+             return Response(responseA.response_custom(mensok,"",status.HTTP_200_OK))
         else:
-             return Response('id no encontrado', status = status.HTTP_400_BAD_REQUEST)
+            menserr="id no encontrado"
+            se=idResponse
+            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
         
             
 
