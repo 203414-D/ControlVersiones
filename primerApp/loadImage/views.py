@@ -38,7 +38,7 @@ class ImagenView(APIView):
         im.save(f"{image_path}/"+d+c)
         request2 ={
             "name_img": d,
-            "url_img": "http://localhost:8000/assets/img/"+d,
+            "url_img": "http://localhost:8000/assets/img/"+d+c,
             "format_img": c,
         }
         res = json.dumps(request2)
