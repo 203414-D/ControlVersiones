@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'Login',
     'Register',
+    'loadImage',
 ]
 REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
@@ -142,10 +143,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/assets/'
+MEDIA_URL = '/img/'
+
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR, 'assets')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/img')
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
 

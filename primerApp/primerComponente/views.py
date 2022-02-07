@@ -1,5 +1,4 @@
-from ast import Delete
-from urllib import response
+
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,7 +22,9 @@ class PrimerViewList(APIView):
     def get(self, request, format=None):
         querySet = PrimerModelo.objects.all()
         serializer=PrimerTablaSerializer(querySet,many=True ,context={'request':request})
-        return Response(serializer.data)
+        s=serializer.data
+        mensok="success"
+        return Response(responseA.response_custom(mensok,s,status.HTTP_200_OK))
 
     def post(self, request,format=None):
         serializer = PrimerTablaSerializer(data=request.data, context={'request':request})
@@ -56,8 +57,8 @@ class PrimerViewDetail(APIView):
              mensok="success"
              return Response(responseA.response_custom(mensok,s,status.HTTP_200_OK))
         else:
-            menserr="id no encontrado"
-            se=idResponse
+            menserr="Error"
+            se="id not found"
             return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
 
     def put(self,request,pk,format=None):
@@ -75,8 +76,8 @@ class PrimerViewDetail(APIView):
                    se=serializer.errors
                    return Response(responseA.response_custom(menserr,se,status.HTTP_400_BAD_REQUEST))
         else:
-            menserr="id no encontrado"
-            se=idResponse
+            menserr="error"
+            se="id not found"
             return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
 
     def delete(self,request,pk,format=None):
@@ -86,8 +87,8 @@ class PrimerViewDetail(APIView):
              mensok="success"
              return Response(responseA.response_custom(mensok,"",status.HTTP_200_OK))
         else:
-            menserr="id no encontrado"
-            se=idResponse
+            menserr="error"
+            se="id not found"
             return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
         
             
