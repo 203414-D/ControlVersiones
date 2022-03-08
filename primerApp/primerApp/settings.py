@@ -36,7 +36,7 @@ SECRET_KEY = env('SECRET_KEY')
 ##DEBUG = True
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -55,10 +55,12 @@ INSTALLED_APPS = [
     'Login',
     'Register',
     'loadImage',
+    'corsheaders',
+    'UserProfile',
 ]
 REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',),
-        'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+        'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication','rest_framework_simplejwt.authentication.JWTAuthentication',),
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
         'PAGE_SIZE': 100
 }
@@ -71,6 +73,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    
+]
+CORS_ALLOWED_ORIGINS =[
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'primerApp.urls'
@@ -143,14 +150,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/assets/'
-MEDIA_URL = '/img/'
+STATIC_URL = 'static/'
+MEDIA_URL = '/assets/'
 
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR, 'assets')
-]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/img')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assets')
 
 
 
