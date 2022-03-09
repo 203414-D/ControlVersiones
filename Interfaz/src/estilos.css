@@ -1,0 +1,109 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: arial;
+    background-image: url('./fondo.jpg');
+}
+img{
+    height: 125px;
+    width: 115px;
+    
+}
+.image{
+    height: 125px;
+    width: 115px;
+    transform: translateX(100%);
+    background-color: white;
+    
+  
+}
+.profile, .user{
+    width: 400px;
+    height: 648px;
+    background-color: #4e4d4d;
+    margin: auto;
+    margin-top: 70px;
+    box-shadow: 7px 13px 37px #000;
+    padding: 20px 30px;
+    border-top: 4px solid #017bab;
+    color: white;
+}
+.register{
+    width: 400px;
+    height: 648px;
+    background-color: #4e4d4d;
+    margin: auto;
+    margin-top: 70px;
+    box-shadow: 7px 13px 37px #000;
+    padding: 20px 30px;
+    border-top: 4px solid #017bab;
+    color: white;
+}
+.login{
+    width: 400px;
+    height: 340px;
+    background-color: #4e4d4d;
+    margin: auto;
+    margin-top: 188px;
+    box-shadow: 7px 13px 37px #000;
+    padding: 20px 30px;
+    border-top: 4px solid #017bab;
+    color: white;
+}
+.login h2, .register h2, .profile h2{
+    margin: 0;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid;
+    font-size: 20px;
+}
+.login input, .register input{
+    width: 100%;
+    border: 1px solid #017bab;
+    margin-bottom: 15px;
+    padding: 11px 10px;
+    background-color: #252323;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+button{
+    width: 100%;
+    height: 40px;
+    background-color: #017bab;
+    border: none;
+    color: white;
+    margin-bottom: 16px;
+
+}
+#Link-Style {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+
+}
+.profile button{
+    width: 25%;
+    height: 30px;
+    background-color: #017bab;
+    border: none;
+    color: white;
+}
+.profile input{
+    margin-bottom: 15px;
+}
+#vacio{
+    margin-bottom: 30px;
+    border-bottom: 1px solid;
+}
+button:hover{
+    background-color: #4CAF50;
+
+    color: white;
+}
+#Link-Style:hover{
+    color: #4c85db;
+}
