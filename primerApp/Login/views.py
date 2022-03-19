@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
 
 class LoginAuth(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -24,3 +25,5 @@ class LoginAuth(ObtainAuthToken):
 class MyObtainTokenPairView(TokenObtainPairView):
    permission_classes = (AllowAny,)
    serializer_class = MyTokenObtainPairSerializer
+
+

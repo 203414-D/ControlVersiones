@@ -26,3 +26,26 @@ class RegisterUserNew(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
+
+class RegisterN(APIView):
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+                return 404
+
+    def put(self,request,pk,format=None):
+
+        idResponse = self.get_object(pk)
+        if idResponse != 404:
+               serializer = RegisterSerializer(idResponse, data=request.data, context={'request':request})
+               if serializer.is_valid():
+                   serializer.save()
+                   s=serializer.data
+                   return Response(s,status.HTTP_200_OK)
+               else:
+                   se=serializer.errors
+                   return Response(se,status.HTTP_400_BAD_REQUEST)
+        else:
+            se="id not found"
+            return Response(se,status.HTTP_404_NOT_FOUND)

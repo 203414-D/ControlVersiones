@@ -9,8 +9,8 @@ class RegisterSerializer(serializers.ModelSerializer):
            validators=[UniqueValidator(queryset=User.objects.all())]
            )
  
-   password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-   password2 = serializers.CharField(write_only=True, required=True)
+   password = serializers.CharField(write_only=True, required=False, validators=[validate_password])
+   password2 = serializers.CharField(write_only=True, required=False)
  
    class Meta:
        model = User
@@ -20,11 +20,11 @@ class RegisterSerializer(serializers.ModelSerializer):
            'last_name': {'required': True}
        }
  
-   def validate(self, attrs):
-       if attrs['password'] != attrs['password2']:
-           raise serializers.ValidationError({"password": "Password error"})
+   ##def validate(self, attrs):
+  ##     if attrs['password'] != attrs['password2']:
+   ##        raise serializers.ValidationError({"password": "Password error"})
  
-       return attrs
+   ##    return attrs
  
    def create(self, validated_data):
        user = User.objects.create(
