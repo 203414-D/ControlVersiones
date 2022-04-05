@@ -19,7 +19,7 @@ from loadImage.models import ImagenModelo
 
 #importacion response custom
 from primerComponente.views import responseA
-
+se1 = "id not found"
 
 class ImagenView(APIView):
     def get(self, request, format=None):
@@ -55,7 +55,6 @@ class ImagenView(APIView):
             return Response(responseA.response_custom(menserr,se,status.HTTP_400_BAD_REQUEST))
 
 class ImagenViewDetail(APIView):
-
     def get_objetc(self, pk):
          try:
             return ImagenModelo.objects.get(pk=pk)
@@ -63,7 +62,6 @@ class ImagenViewDetail(APIView):
                 return 404
 
     def get(self, request, pk, format=None):
-
         idresponse = self.get_objetc(pk)
         if idresponse !=404:
             serializer = ImagenTablaSerializer(idresponse, context={'request':request})
@@ -72,11 +70,9 @@ class ImagenViewDetail(APIView):
             return Response(responseA.response_custom(mensok,s,status.HTTP_200_OK))
         else:
             menserr="Error"
-            se="id not found"
-            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
+            return Response(responseA.response_custom(menserr,se1,status.HTTP_404_NOT_FOUND))
 
     def put(self,request,pk,format=None):
-
         idResponse = self.get_objetc(pk)
         if idResponse != 404:
             serializer = ImagenTablaSerializer(idResponse, data = request.data, context={'request':request})
@@ -91,8 +87,7 @@ class ImagenViewDetail(APIView):
                 return Response(responseA.response_custom(menserr,se,status.HTTP_400_BAD_REQUEST))
         else:
              menserr="error"
-             se="id not found"
-             return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
+             return Response(responseA.response_custom(menserr,se1,status.HTTP_404_NOT_FOUND))
     
     def delete(self,request,pk,format=None):
         idresponse = get_object_or_404(ImagenModelo, pk=pk)
@@ -102,8 +97,7 @@ class ImagenViewDetail(APIView):
             return Response(responseA.response_custom(mensok,"",status.HTTP_200_OK))
         else:
             menserr="error"
-            se="id not found"
-            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
+            return Response(responseA.response_custom(menserr,se1,status.HTTP_404_NOT_FOUND))
 
 
 

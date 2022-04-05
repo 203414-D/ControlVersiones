@@ -21,7 +21,6 @@ class ProfileList(APIView):
         if 'url_img' not in request.data:
             raise exceptions.ParseError(
                 "No se ha seleccionado ningun archivo")
-        url_img = request.data['url_img']
         serializer = ProfileTablaSerializer(data=request.data)
         if serializer.is_valid():
             validated_data=serializer.validated_data
@@ -36,18 +35,19 @@ class ProfileTablaDetail(APIView):
         try:
             return ProfileTabla.objects.get(user_id=pk)
         except ProfileTabla.DoesNotExist:
-            return "no existe"
+            resp = "no existe"
+            return resp
     
     def get(self, request, pk, fromat=None):
         idResponse = self.get_object(pk)
-        if idResponse != "no existe":
+        val = "no existe"
+        if idResponse != val:
             idResponse = ProfileTablaSerializer(idResponse)
             return Response(idResponse.data, status=status.HTTP_200_OK)
         return Response("no hay datos",  status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request,pk, fromat=None):
         idResponse= self.get_object(pk)
-        url_img= request.data['url_img']
         serializer = ProfileTablaSerializer(idResponse, data= request.data)
         if serializer.is_valid():
             serializer.save()
@@ -57,7 +57,8 @@ class ProfileTablaDetail(APIView):
 
     def delete(self, request,pk,format=None):
         img= self.get_object(pk)
-        if img != "no existe":
+        vali = "no exite"
+        if img != vali:
             img.url_img.delete(save=True)
             img.delete()
             return Response("archivo eliminado", status=status.HTTP_200_OK)

@@ -19,13 +19,6 @@ class RegisterSerializer(serializers.ModelSerializer):
            'first_name': {'required': True},
            'last_name': {'required': True}
        }
- 
-   ##def validate(self, attrs):
-  ##     if attrs['password'] != attrs['password2']:
-   ##        raise serializers.ValidationError({"password": "Password error"})
- 
-   ##    return attrs
- 
    def create(self, validated_data):
        user = User.objects.create(
            username=validated_data['username'],

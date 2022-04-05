@@ -10,10 +10,12 @@ from primerComponente.models import PrimerModelo
 #importacion de serializador
 from primerComponente.serializers import PrimerTablaSerializer
 
+ser="id not found"
+
 class responseA(APIView):
-    def response_custom(message="", payload="", statusn=""):
+    def response_custom(self="", payload="", statusn=""):
         return{
-            "message": message,
+            "message": self,
             "payload": payload,
             "status": statusn
         }
@@ -49,7 +51,6 @@ class PrimerViewDetail(APIView):
                 return 404
 
     def get(self,request,pk,format=None):
-        ##serializer = PrimerTablaSerializer(data=request.data, context={'request':request})
         idResponse = self.get_object(pk)
         if idResponse != 404:
              serializer = PrimerTablaSerializer(idResponse, context={'request':request})
@@ -58,8 +59,7 @@ class PrimerViewDetail(APIView):
              return Response(responseA.response_custom(mensok,s,status.HTTP_200_OK))
         else:
             menserr="Error"
-            se="id not found"
-            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
+            return Response(responseA.response_custom(menserr,ser,status.HTTP_404_NOT_FOUND))
 
     def put(self,request,pk,format=None):
 
@@ -77,8 +77,7 @@ class PrimerViewDetail(APIView):
                    return Response(responseA.response_custom(menserr,se,status.HTTP_400_BAD_REQUEST))
         else:
             menserr="error"
-            se="id not found"
-            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
+            return Response(responseA.response_custom(menserr,ser,status.HTTP_404_NOT_FOUND))
 
     def delete(self,request,pk,format=None):
         idResponse = get_object_or_404(PrimerModelo, pk=pk)
@@ -88,8 +87,7 @@ class PrimerViewDetail(APIView):
              return Response(responseA.response_custom(mensok,"",status.HTTP_200_OK))
         else:
             menserr="error"
-            se="id not found"
-            return Response(responseA.response_custom(menserr,se,status.HTTP_404_NOT_FOUND))
+            return Response(responseA.response_custom(menserr,ser,status.HTTP_404_NOT_FOUND))
         
             
 
